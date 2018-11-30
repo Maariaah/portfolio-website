@@ -1,0 +1,77 @@
+///mixins///
+
+@mixin Rotate($degrees) {
+  -ms-transform: rotate($degrees);
+  -webkit-transform: rotate($degrees);
+  transform: rotate($degrees);
+
+}
+@mixin RotateReverse($degrees) {
+  -ms-transform: rotate($degrees);
+  -webkit-transform: rotate($degrees);
+  transform: rotate($degrees);
+
+}
+
+@mixin boxShadow {
+  -moz-box-shadow: $shadow $colorBoxShadow;
+  -webkit-box-shadow: $shadow $colorBoxShadow;
+    box-shadow: $shadow $colorBoxShadow;
+}
+
+
+@mixin Transform {
+  -webkit-transition: $transform;
+  -moz-transition: $transform;
+  -o-transition: $transform;
+  transition: $transform;
+}
+
+@mixin Translate {
+  -webkit-transform: $translate;
+  -moz-transform: $translate;
+  -o-transform: $translate;
+  -ms-transform: $translate;
+  transform: $translate;
+}
+
+@mixin gridDots($mgn,$width) {
+
+  margin-bottom: $mgn;
+  width: $width;
+  height: $width;
+}
+
+@mixin dots {
+  border-radius: 100%;
+  z-index: 20;
+
+}
+@mixin backgroundSize{
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size:contain;
+
+}
+
+@mixin textProperties{
+  text-align: left;
+  padding: 10px;
+  float: left;
+  margin-top: 30px;
+}
+
+@mixin headerAndFooter{
+  position: relative;
+  width: 100%;
+
+}
+@mixin zoomIn {
+  -webkit-transform: $transform_zoom_in;
+  transform:$transform_zoom_in;
+}
+@mixin grayScale{
+  -webkit-filter:$grayscale;
+  filter:$grayscale;
+}

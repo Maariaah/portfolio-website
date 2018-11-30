@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <title>Contact</title>
+    <link rel="shortcut icon" type="image/png" href="../../favicon.png"/>
+    <link rel="stylesheet" href="../../dist/assets/css/main.css">
+    <link rel="stylesheet" href="../../dist/assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../dist/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+<body class="light_background">
+<div id="main-wrapper">
+    <header id="heder-nav" class="">
+        <ul>
+            <li>
+                <a href="../../index.html">Nazad</a>
+            </li>
+        </ul>
+    </header>
+    <div class="form-container">
+
+        <div class="title_image">
+            <img src="../../dist/assets/images/kontakt/title_1.png" alt="">
+        </div>
+        <div class="formMessages">
+            <p>
+                <span id="error_msg"></span>
+            </p>
+        </div>
+        <form class="form" id="ajax_form" method="POST">
+
+            <div class="form-r">
+                <label for="name"> Ime:</label>
+                <br>
+                <input type="text" id="name" name="name" class="input basic" data-att="ime" autofocus>
+                <span id="error_name" class="error_text"></span>
+            </div>
+            <div class="form-r">
+                <label for="email"> Email: </label>
+                <br>
+                <input type="email" id="email" name="email" placeholder="" class="input basic" data-att="mejl"
+                       autofocus>
+                <span id="error_email" class="error_text"></span>
+            </div>
+            <div class="form-r">
+                <label for="message">Poruka</label>
+                <br>
+                <textarea name="message" id="message" cols="12" rows="7" class="input basic"
+                          data-att="polje za komentar"
+                          autofocus></textarea>
+                <span id="error_textarea" class="error_text"></span>
+            </div>
+
+            <div class="form-r">
+                <button class="button basic" type="submit" name="submit" id="submit"><span>POŠALJI</span></button>
+            </div>
+        </form>
+        <div class="envelope_gif">
+
+            <p>...ili me kontaktiraj na socijalnim mrežama:</p>
+            <div class="gif-container">
+                <p>OTVORI</p>
+                <div class="envelope_links">
+                    <div><h4>f</h4><a href="https://www.facebook.com/mariah.nikolic" target="_blank">Mariah Nikolic</a></div>
+                    <div><h4>in</h4><a href="https://www.linkedin.com/in/marija-n-b58037153/" target="_blank">Marija Nikolić</a></div>
+                    <div><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/mariaahnikolic/" target="_blank">mariaahnikolic</a></div>
+                </div>
+                <img src="../../dist/assets/images/kontakt/envelope.png" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="../../jquery-3.2.1.min.js"></script>
+<script src="../../src/js/js_main.js"></script>
+<script>
+
+    let form = $("#ajax_form");
+    let error_msg = $("#error_msg");
+    let error_name = $("#error_name");
+    let error_email = $("#error_email");
+    let error_textarea = $("#error_textarea");
+
+
+    form.submit(function (e) {
+        e.preventDefault();
+
+
+        let name = $('#name');
+        let email = $('#email');
+        let textarea = $("#message");
+
+        let formData = form.serialize();
+        let formMsg = $(".input");
+
+
+        $.ajax({
+            method: 'POST',
+            url: "../php/contact_form.php",
+            data: formData
+        })
+            .done(function (response) {
+
+                if (name.val() === "" && email.val() === "" && textarea.val() === "") {
+                    error_msg.text(response);
+                    error_msg.removeClass('success_text');
+                    error_msg.addClass('error_text');
+                }
+                else {
+
+                    if (name.val() === "" || email.val() === "" || textarea.val() === "") {
+
+                        formMsg.each(function (index) {
+
+                            if ($(this).val() === "") {
+                                error_msg.text('Morate popuniti sva polja.');
+                                error_msg.removeClass('success_text');
+                                error_msg.addClass('error_text');
+
+                                $(this).next().text(response + ' ' + $(this).attr("data-att"));
+                                $(this).removeClass('success');
+                                $(this).removeClass('basic');
+                                $(this).addClass('error');
+
+                            }
+
+                            else {
+                                $(this).next().text(" ");
+                                $(this).addClass('success');
+                                $(this).removeClass('error');
+
+                            }
+
+                        });
+                    }
+                    else {
+                        error_msg.text(response);
+                        name.val('');
+                        email.val('');
+                        textarea.val('');
+
+                        error_name.text("");
+                        error_email.text("");
+                        error_textarea.text("");
+
+                        error_msg.removeClass('error_text');
+                        error_msg.addClass('success_text');
+
+                        formMsg.addClass('basic');
+                    }
+                }
+
+            })
+
+            .fail(function (data) {
+
+                formMsg.removeClass('success');
+                formMsg.addClass('error');
+
+                if (data.responseText !== '') {
+                    formMsg.text(data.responseText);
+                } else {
+                    formMsg.text('Greška! Vaša poruka ne može biti poslata :(');
+                }
+            });
+    });
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+// for older browsers
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+body {
+  text-align: center;
+}
+
+body, header, nav, section {
+  display: block;
+}
+
+h1, h2, h3 ,h4, h5, h6 {
+font-size: 100%
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+a:hover
+{
+  text-decoration: none;
+}

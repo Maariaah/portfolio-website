@@ -1,0 +1,19 @@
+$mainFont: "Arvo", Arial, sans-serif;
+$mainStrongFont: "Arvo-Bold", Arial, sans-serif;
+$boldFont:"Rokkitt-Black", Arial, sans-serif;
+
+
+@font-face {
+  font-family: "Arvo";
+  src: url("../../../dist/assets/fonts/Arvo-Regular.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: "Rokkitt-Black";
+  src: url("../../../dist/assets/fonts/Rokkitt-Black.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: "Arvo-Bold";
+  src: url("../../../dist/assets/fonts/Arvo-Bold.ttf") format('truetype');
+}
